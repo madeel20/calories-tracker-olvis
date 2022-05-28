@@ -1,16 +1,18 @@
 import { Form, Input, Button, Checkbox, DatePicker, AutoComplete } from "antd";
 import axios from "axios";
-import { useDeferredValue, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { auth, firestore } from "../../firebase";
 import { NUTRITIONIX_APP_ID, NUTRITIONIX_KEY } from "../../utils/constants";
-
+import { debounce } from "lodash";
 const FoodForm = ({ loading, onSubmit, isModalVisible, initialValues = {food:'',calories:''} }) => {
   const [form] = Form.useForm();
   const [options, setOptions] = useState([]);
   const [search,setSearch] = useState('');
-  const deferredSearchValue = useDeferredValue(search, {
-    timeoutMs: 800
-  });
+  const onSearch = (searchText) => {
+    setSearch(searchText)
+  };
+  const onSearchDebounce = useCallback(debounce(onSearch, 500), []);
+
   
   useEffect(()=>{
     form.resetFields()
@@ -23,9 +25,9 @@ const FoodForm = ({ loading, onSubmit, isModalVisible, initialValues = {food:'',
   }
 
   useEffect(()=>{
-    if(deferredSearchValue){
+    if(search){
       axios.get(
-        "https://trackapi.nutritionix.com/v2/search/instant?query="+deferredSearchValue,
+        "https://trackapi.nutritionix.com/v2/search/instant?query="+search,
         {
           headers: {
             "x-app-key": NUTRITIONIX_KEY,
@@ -37,11 +39,7 @@ const FoodForm = ({ loading, onSubmit, isModalVisible, initialValues = {food:'',
     else {
       setOptions([]);
     }
-  },[deferredSearchValue])
-
-  const onSearch = (searchText) => {
-    setSearch(searchText)
-  };
+  },[search])
 
   const onSelect = (food_name) => {
     let foodItem = options.find(e=>e.food_name === food_name);
@@ -85,7 +83,7 @@ const FoodForm = ({ loading, onSubmit, isModalVisible, initialValues = {food:'',
         <AutoComplete
           options={options.map(e=>({label: e?.food_name, value: e?.food_name}))}
           onSelect={onSelect}
-          onSearch={onSearch}
+          onSearch={onSearchDebounce}
           disabled={loading}
         />
       </Form.Item>

@@ -33,7 +33,7 @@ const FoodsList = ({
       ];
 
   return (
-    <Table pagination={{pageSize:7}} loading={loading} columns={columns} dataSource={foodsList} />
+    <Table rowKey={(eachRow)=>eachRow.id} pagination={{pageSize:7}} loading={loading} columns={columns} dataSource={foodsList} />
   )
 }
 

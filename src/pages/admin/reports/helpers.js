@@ -40,6 +40,6 @@ export const getReportsData = async () => {
       last7Days: last7DaysData.length,
       lastWeek: last14DaysData.length,
     },
-    averageNoOfCaloriesPerUserIn7Days: averageCalories.toFixed(0),
+    averageNoOfCaloriesPerUserIn7Days: averageCalories.toFixed(0) || 0.0,
   };
 };

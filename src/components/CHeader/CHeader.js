@@ -16,16 +16,20 @@ function CHeader() {
   const [collapsed, setCollapsed] = useState(true);
 
   const menu = (
-    <Menu>
-      <Menu.Item onClick={() => auth.signOut().then(res=>history.push('/'))}>
-        <LogoutOutlined /> Sign Out
-      </Menu.Item>
-    </Menu>
+    <Menu
+      items={[
+        {
+          icon: <LogoutOutlined />,
+          onClick: () => auth.signOut().then((res) => history.push("/")),
+          label: "Sign Out",
+        },
+      ]}
+    />
   );
 
   return (
     <Header style={styles.header}>
-      <Link  to="/">
+      <Link to="/">
         <Title level={2} style={styles.heading}>
           Calories Tracking App
         </Title>

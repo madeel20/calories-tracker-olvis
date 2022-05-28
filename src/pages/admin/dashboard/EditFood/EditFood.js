@@ -27,9 +27,10 @@ const EditFood = ({ getFoodsList, food, onClose }) => {
       .then((res) => {
         message.success("Food Updated!");
         getFoodsList();
+        setLoading(false);
         onClose();
       })
-      .finally(() => setLoading(false));
+      .catch(() => setLoading(false));
   };
 
   return (

@@ -47,15 +47,17 @@ const Reports = () => {
           <Row gutter={24} className="mt-2">
             <Col span={12}>
               <div className={classes.statisticsContainer}>
+              <Title level={1}>{reportsData?.numberOfEntries?.last7Days}</Title>
                 <Title level={5}>
-                  <Title level={1}>{reportsData?.numberOfEntries?.last7Days}</Title>last 7 days
+                  last 7 days
                 </Title>
               </div>
             </Col>
             <Col span={12}>
               <div className={classes.statisticsContainer}>
+              <Title level={1}>{reportsData?.numberOfEntries?.lastWeek}</Title>
                 <Title level={5}>
-                  <Title level={1}>{reportsData?.numberOfEntries?.lastWeek}</Title>last week
+                  last week
                 </Title>
               </div>
             </Col>
@@ -68,8 +70,9 @@ const Reports = () => {
           <Row className="mt-2">
             <Col span={12}>
               <div className={classes.statisticsContainer}>
+              <Title level={1}>{reportsData?.averageNoOfCaloriesPerUserIn7Days || 0} cal.</Title>
                 <Title level={5}>
-                  <Title level={1}>{reportsData?.averageNoOfCaloriesPerUserIn7Days} cal.</Title> per user
+                   per user
                 </Title>
               </div>
             </Col>

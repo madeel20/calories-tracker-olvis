@@ -60,7 +60,7 @@ const FoodsList = ({
       ];
 
   return (
-    <Table size="small" pagination={{pageSize:8}} loading={loading} columns={columns} dataSource={foodsList} />
+    <Table rowKey={(eachRow)=>eachRow.id} size="small" pagination={{pageSize:8}} loading={loading} columns={columns} dataSource={foodsList} />
   )
 }
 

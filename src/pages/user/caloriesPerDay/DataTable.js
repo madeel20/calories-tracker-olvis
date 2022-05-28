@@ -38,7 +38,7 @@ const DataTable = ({ loading, data }) => {
     },
   ];
 
-  return <Table pagination={{pageSize:7}} loading={loading} columns={columns} dataSource={data} />;
+  return <Table rowKey={(eachRow)=>eachRow.date} pagination={{pageSize:7}} loading={loading} columns={columns} dataSource={data} />;
 };
 
 export default DataTable;
